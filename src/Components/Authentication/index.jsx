@@ -27,7 +27,7 @@ class Authentication extends React.Component {
 		axios(
 			{
 			  method: "POST", 
-			  url: process.env.port === 8080 ? "http://localhost:3001/authenticate" : "http://weatherbackend-env.eba-xftcnfcx.us-east-1.elasticbeanstalk.com/authenticate",
+			  url: process.env.port === 8080 ? "http://localhost:8081/authenticate" : "http://weatherbackend-env.eba-xftcnfcx.us-east-1.elasticbeanstalk.com/authenticate",
 			  crossDomain: true, 
 			  data: {
 			  	username: this.state.username,
@@ -37,7 +37,6 @@ class Authentication extends React.Component {
 
 				if (response.data.auth === 1) {
 					alert("Authenticated!");
-					// this.props.confirmAuth()
 					this.props.forceUpdate(1);
 				} else {
 					alert("Invalid username or password!");
@@ -51,7 +50,7 @@ class Authentication extends React.Component {
 		return (
 			<div className="marginAddedTop">
 				<input className="block inputs" type="text" placeholder="username" onChange= { (event) => this.updateUserName(event) }></input>
-				<input className="block marginAddedLeft inputs" type="text" placeholder="password" onChange= { (event) => this.updatePassword(event) }></input>
+				<input className="block marginAddedLeft inputs" type="password" placeholder="password" onChange= { (event) => this.updatePassword(event) }></input>
 				<button className="inputs confirmBtn" onClick={ () => this.checkAuth() }>Login</button>
 			</div>
 		);
