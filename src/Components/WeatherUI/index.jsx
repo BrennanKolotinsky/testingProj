@@ -12,7 +12,6 @@ class WeatherUI extends React.Component {
     }
 
 	findWeather () {
-		console.log(this.state.location);
 		axios(
 			{
 			  method: "POST", 
@@ -36,13 +35,19 @@ class WeatherUI extends React.Component {
 		this.state.location = e.target.value;
 	}
 
+	handleKeyPress(e) {
+	  if(e.key === 'Enter'){
+	    this.findWeather();
+	  }
+	}
+
 	render() {
 		return(
 			<div>
 				<h2 className="marginAddedTop">
 					Get a cities current weather!
 				</h2>
-				<input className="block" className="inputs" type="text" placeholder="Vancouver" onChange= { (event) => this.updateCurrentLocation(event) }></input>
+				<input className="block" className="inputs" type="text" placeholder="Vancouver" onKeyPress={ (event) => this.handleKeyPress(event) } onChange= { (event) => this.updateCurrentLocation(event) }></input>
 				<button className="inputs confirmBtn" onClick={ () => this.findWeather() }>Get Weather!</button>
 
 				<div className="block" style={this.state.displayingData == true ? {} : { display : 'none' } }>
