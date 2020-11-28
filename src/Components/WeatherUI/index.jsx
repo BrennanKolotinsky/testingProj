@@ -34,6 +34,7 @@ class WeatherUI extends React.Component {
 
 	updateCurrentLocation(e) {
 		this.state.location = e.target.value;
+		console.log(this.state.location);
 	}
 
 	render() {

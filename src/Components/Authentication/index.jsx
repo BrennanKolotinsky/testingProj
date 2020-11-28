@@ -20,6 +20,12 @@ class Authentication extends React.Component {
 		this.state.password = e.target.value;
 	}
 
+	handleKeyPress(e) {
+	  if(e.key === 'Enter'){
+	    this.checkAuth();
+	  }
+	}
+
 	checkAuth() {
 		if (this.state.username === '' || this.state.password === '')
 			alert("Incomplete login info!");
@@ -49,8 +55,8 @@ class Authentication extends React.Component {
 
 		return (
 			<div className="marginAddedTop">
-				<input className="block inputs" type="text" placeholder="username" onChange= { (event) => this.updateUserName(event) }></input>
-				<input className="block marginAddedLeft inputs" type="password" placeholder="password" onChange= { (event) => this.updatePassword(event) }></input>
+				<input className="block inputs" type="text" placeholder="username" onKeyPress={ (event) => this.handleKeyPress(event) } onChange= { (event) => this.updateUserName(event) }></input>
+				<input className="block marginAddedLeft inputs" type="password" placeholder="password" onKeyPress={ (event) => this.handleKeyPress(event) } onChange= { (event) => this.updatePassword(event) }></input>
 				<button className="inputs confirmBtn" onClick={ () => this.checkAuth() }>Login</button>
 			</div>
 		);
