@@ -26,14 +26,6 @@ app.use(express.static(path.join(__dirname, "..", "build")));
 app.use(cors({origin: '*'})); // allows cross platform http requests to be made
 app.use(bodyParser.json());
 
-// Dev environment front-end proxy server
-const devProxy = proxy("localhost:8080", {
-  proxyReqPathResolver: function (req) {
-    console.log(req.url);
-    return req.url;
-  },
-});
-
 app.get('/weather', (req, res) => {
 	const location = req.query.location === undefined ? "Vancouver" : req.query.location;
 	console.log(location);
@@ -70,14 +62,10 @@ app.post('/authenticate', async (req, res) => {
 	});
 });
 
-app.get('/', (req, res) => {
+app.get('/home', (req, res) => {
 	console.log("Visited the home page!");
 	res.sendFile(path.join(__dirname, './build/index.html')); // render our HTML
 });
-
-process.env.DEV_PROXY
-  ? app.use("/", devProxy)
-  : app.use("*", express.static(path.join(__dirname, "..", "build")));
 
 const port = process.env.port;
 app.listen(port || 3000, () => {
