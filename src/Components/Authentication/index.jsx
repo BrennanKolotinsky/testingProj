@@ -24,26 +24,26 @@ class Authentication extends React.Component {
 		if (this.state.username === '' || this.state.password === '')
 			alert("Incomplete login info!");
 
-		// axios(
-		// 	{
-		// 	  method: "POST", 
-		// 	  url: process.env.port === 8080 ? "http://localhost:3001/authenticate" : "http://localhost:8081/authenticate",
-		// 	  crossDomain: true, 
-		// 	  data: {
-		// 	  	username: this.state.username,
-		// 	  	password: this.state.password,
-		// 	  }
-		// 	}).then((response) => {
+		axios(
+			{
+			  method: "POST", 
+			  url: process.env.port === 8080 ? "http://localhost:3001/authenticate" : "http://weatherbackend-env.eba-xftcnfcx.us-east-1.elasticbeanstalk.com/authenticate",
+			  crossDomain: true, 
+			  data: {
+			  	username: this.state.username,
+			  	password: this.state.password,
+			  }
+			}).then((response) => {
 
-		// 		if (response.data.auth === 1) {
-		// 			alert("Authenticated!");
-		// 			// this.props.confirmAuth()
-		// 			this.props.forceUpdate(1);
-		// 		} else {
-		// 			alert("Invalid username or password!");
-		// 		}
-		// 	}
-		// );
+				if (response.data.auth === 1) {
+					alert("Authenticated!");
+					// this.props.confirmAuth()
+					this.props.forceUpdate(1);
+				} else {
+					alert("Invalid username or password!");
+				}
+			}
+		);
 	}
 
     render() {

@@ -12,24 +12,24 @@ class WeatherUI extends React.Component {
     }
 
 	findWeather () {
-		// axios(
-		// 	{
-		// 	  method: "GET", 
-		// 	  url: process.env.REACT_APP_LOCAL === "true" ? "http://localhost:3001/weather" : "http://localhost:8081/weather",
-		// 	  crossDomain: true, 
-		// 	  data: {
-		// 	  	location: this.state.location
-		// 	  }
-		// 	}).then((response) => {
-		// 		console.log(response);
-		// 		this.setState({
-		// 			displayingData: true,
-		// 			weather: response.data.data.weather[0].description,
-		// 			lat: response.data.data.coord.lat,
-		// 			lon: response.data.data.coord.lon,
-		// 		})
-		// 	}
-		// );
+		axios(
+			{
+			  method: "GET", 
+			  url: process.env.port === "true" ? "http://localhost:3001/weather" : "http://weatherbackend-env.eba-xftcnfcx.us-east-1.elasticbeanstalk.com/weather",
+			  crossDomain: true, 
+			  data: {
+			  	location: this.state.location
+			  }
+			}).then((response) => {
+				console.log(response);
+				this.setState({
+					displayingData: true,
+					weather: response.data.data.weather[0].description,
+					lat: response.data.data.coord.lat,
+					lon: response.data.data.coord.lon,
+				})
+			}
+		);
 	}
 
 	updateCurrentLocation(e) {
