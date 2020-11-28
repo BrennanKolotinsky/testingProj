@@ -34,11 +34,6 @@ const devProxy = proxy("localhost:8080", {
   },
 });
 
-app.get('/', (req, res) => {
-	console.log("Visited the home page!");
-	res.sendFile(path.join(__dirname, './build/index.html')); // render our HTML
-});
-
 app.get('/weather', (req, res) => {
 	const location = req.query.location === undefined ? "Vancouver" : req.query.location;
 	console.log(location);
@@ -73,6 +68,11 @@ app.post('/authenticate', async (req, res) => {
 	res.send({
 		auth: user !== null ? 1: 0
 	});
+});
+
+app.get('/', (req, res) => {
+	console.log("Visited the home page!");
+	res.sendFile(path.join(__dirname, './build/index.html')); // render our HTML
 });
 
 process.env.DEV_PROXY
