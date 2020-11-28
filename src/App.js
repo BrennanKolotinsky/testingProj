@@ -1,23 +1,36 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import Weather from "./Components/WeatherUI/index.jsx";
+import Authentication from "./Components/Authentication/index.jsx";
+import Module from 'module'
+const axios = require('axios'); // use to send API requests!
+let authenticated = false;
+let numTimes = 0;
+
+const ConfirmAuth = () => {
+  
+  // the hook renders twice automatically (frustrating!)
+  if (++numTimes > 2) {
+    authenticated = true;
+  }
+
+  // this just forces an update
+  const [value, setValue] = useState(0);
+  return () => setValue(value => ++value);
+}
 
 function App() {
+  let forceUpdate = ConfirmAuth(); // hook
   return (
+
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div style={authenticated == false ? {} : { display : 'none' } }>
+        <Authentication forceUpdate={ forceUpdate } authenticated={ authenticated }  />
+      </div>
+      <div style={authenticated == true ? {} : { display : 'none' } }>
+        <Weather />
+      </div>
     </div>
   );
 }
