@@ -26,46 +26,46 @@ app.use(express.static(path.join(__dirname, "..", "build")));
 app.use(cors({origin: '*'})); // allows cross platform http requests to be made
 app.use(bodyParser.json());
 
-// app.get('/', (req, res) => {
-// 	console.log("Visited the home page!");
-// 	res.sendFile(path.join(__dirname, './build/index.html')); // render our HTML
-// });
+app.get('/', (req, res) => {
+	console.log("Visited the home page!");
+	res.sendFile(path.join(__dirname, './build/index.html')); // render our HTML
+});
 
-// app.get('/weather', (req, res) => {
-// 	const location = req.query.location === undefined ? "Vancouver" : req.query.location;
-// 	console.log(location);
-// 	const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}`;
-// 	axios(
-// 	{
-// 	    method: "GET", 
-// 	    url: url,
-// 	    crossDomain: true, 
-// 	    data: {
-// 	    }
-// 	}).then((response) => {
-// 		// console.log(response.data)
-//         res.setHeader('Content-Type', 'application/json');
-//   		res.send(JSON.stringify({data: response.data}));
-//     });
-// });
+app.get('/weather', (req, res) => {
+	const location = req.query.location === undefined ? "Vancouver" : req.query.location;
+	console.log(location);
+	const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}`;
+	axios(
+	{
+	    method: "GET", 
+	    url: url,
+	    crossDomain: true, 
+	    data: {
+	    }
+	}).then((response) => {
+		// console.log(response.data)
+        res.setHeader('Content-Type', 'application/json');
+  		res.send(JSON.stringify({data: response.data}));
+    });
+});
 
-// app.post('/authenticate', async (req, res) => {
-// 	const username = req.body.username;
-// 	const password = req.body.password;
+app.post('/authenticate', async (req, res) => {
+	const username = req.body.username;
+	const password = req.body.password;
 
-// 	if (username === null || password === null) {
-// 		res.send({
-// 			auth: 0
-// 		});
+	if (username === null || password === null) {
+		res.send({
+			auth: 0
+		});
 
-// 		return;
-// 	}
+		return;
+	}
 
-// 	const user = await mongoFunctionality.findUser(mongoDBConnection, mongoDBClient, username, password);
-// 	res.send({
-// 		auth: user !== null ? 1: 0
-// 	});
-// });
+	const user = await mongoFunctionality.findUser(mongoDBConnection, mongoDBClient, username, password);
+	res.send({
+		auth: user !== null ? 1: 0
+	});
+});
 
 const port = process.env.port;
 app.listen(port || 3000, () => {
