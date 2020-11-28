@@ -27,7 +27,7 @@ class Authentication extends React.Component {
 		axios(
 			{
 			  method: "POST", 
-			  url: process.env.port === 8080 ? "http://localhost:8081/authenticate" : "http://weatherbackend-env.eba-xftcnfcx.us-east-1.elasticbeanstalk.com/authenticate",
+			  url: process.env.REACT_APP_LOCAL === 'true' ? "http://localhost:8080/authenticate" : "http://weatherbackend-env.eba-xftcnfcx.us-east-1.elasticbeanstalk.com/authenticate",
 			  crossDomain: true, 
 			  data: {
 			  	username: this.state.username,

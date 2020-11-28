@@ -17,6 +17,6 @@ app.use(cors({origin: '*'})); // allows cross platform http requests to be made
 app.use(bodyParser.json());
 
 const port = process.env.port;
-app.listen(port || 8081, () => {
+app.listen(port || 8080, () => {
 	console.log("Here!");
 });
