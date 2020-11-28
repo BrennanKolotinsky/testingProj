@@ -19,12 +19,20 @@ const apiKey = process.env.WEATHER_API_KEY;
 
 const app = express();
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, "..", "build")));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(pino);
 app.use(express.static(path.join(__dirname, "..", "build")));
 app.use(cors({origin: '*'})); // allows cross platform http requests to be made
 app.use(bodyParser.json());
+
+// Dev environment front-end proxy server
+const devProxy = proxy("localhost:8080", {
+  proxyReqPathResolver: function (req) {
+    console.log(req.url);
+    return req.url;
+  },
+});
 
 app.get('/', (req, res) => {
 	console.log("Visited the home page!");
@@ -66,6 +74,10 @@ app.post('/authenticate', async (req, res) => {
 		auth: user !== null ? 1: 0
 	});
 });
+
+process.env.DEV_PROXY
+  ? app.use("/", devProxy)
+  : app.use("*", express.static(path.join(__dirname, "..", "build")));
 
 const port = process.env.port;
 app.listen(port || 3000, () => {
