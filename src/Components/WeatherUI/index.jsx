@@ -12,16 +12,16 @@ class WeatherUI extends React.Component {
     }
 
 	findWeather () {
+		console.log(this.state.location);
 		axios(
 			{
-			  method: "GET", 
+			  method: "POST", 
 			  url: process.env.REACT_APP_LOCAL === 'true' ? "http://localhost:8080/weather" : "http://weatherbackend-env.eba-xftcnfcx.us-east-1.elasticbeanstalk.com/weather",
 			  crossDomain: true, 
 			  data: {
 			  	location: this.state.location
 			  }
 			}).then((response) => {
-				console.log(response);
 				this.setState({
 					displayingData: true,
 					weather: response.data.data.weather[0].description,
@@ -34,7 +34,6 @@ class WeatherUI extends React.Component {
 
 	updateCurrentLocation(e) {
 		this.state.location = e.target.value;
-		console.log(this.state.location);
 	}
 
 	render() {
