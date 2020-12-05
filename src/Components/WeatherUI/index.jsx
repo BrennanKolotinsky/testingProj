@@ -15,7 +15,7 @@ class WeatherUI extends React.Component {
 		axios(
 			{
 			  method: "GET", 
-			  url: process.env.REACT_APP_LOCAL === 'true' ? "http://localhost:8080/weather" : "http://weatherbackend-env.eba-xftcnfcx.us-east-1.elasticbeanstalk.com/weather",
+			  url: process.env.REACT_APP_LOCAL === 'true' ? "http://localhost:8080/weather" : "http://weatherbackend-env.eba-xftcnfcx.us-east-1.elasticbeanstalk.com/weather2",
 			  crossDomain: true, 
 			  data: {
 			  	location: this.state.location
